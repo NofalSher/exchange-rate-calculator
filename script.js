@@ -78,10 +78,18 @@ const currencyTwoCode=currencyTwo.value;
 // Send request to exchange rate api for conversion rate of currency one
 fetch(`https://v6.exchangerate-api.com/v6/5bb88632ceaf60b1306c930b/pair/${currencyOneCode}/${currencyTwoCode}`)
 .then(res => res.json())
-.then(data => console.log(data))
+.then(data => {
+    // Get conversion rate from currency one to currency two
+const conversionRate=data.conversion_rate;
 
-// Get conversion rate from currency one to currency two
 
+//Update DOM to display conversion rate
+rate.innerText=`1${currencyOneCode}=${conversionRate} ${currencyTwoCode}`;
+
+//Update the currency two amount
+amountCurrencyTwo.value=(amountCurrencyOne.value*conversionRate.toFixed(2));
+
+});
 };
 
 //Event Listener
@@ -95,6 +103,17 @@ currencyTwo.addEventListener("change",calculate);
 //Reculculate excahange rate when currency two amount changes
 amountCurrencyTwo.addEventListener("input",calculate);
 
-//Execute calculate function on page
+swap.addEventListener('click',()=>{
+    //Save value of currency one code to a temporary value
+    const temp=currencyOne.value;
+    //Copy currency two code to currency one
+    currencyOne.value=currencyTwo.value
 
+    //Copy currency one code from temp variable to currency two
+    currencyTwo.value=temp;
+    //Recalculate exchange rate after swap
+    calculate();
+})
+
+//Execute calculate function on page
 calculate();
