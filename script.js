@@ -81,6 +81,7 @@ fetch(`https://v6.exchangerate-api.com/v6/5bb88632ceaf60b1306c930b/pair/${curren
 .then(data => console.log(data))
 
 // Get conversion rate from currency one to currency two
+
 };
 
 //Event Listener
