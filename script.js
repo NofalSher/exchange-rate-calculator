@@ -41,7 +41,7 @@
 // This is atually a json array
 
  */
-
+/*
 
 function calculation(){
     // This fetch function runs asynchronously. Means this function will run in background means js will send fetch request to this function and will then forget and when response gets back js will again awake and take response. 
@@ -56,5 +56,44 @@ function calculation(){
 
 
 }
-calculation();
+calculation();*/
 
+
+//Get DOM elements
+
+const currencyOne=document.getElementById("currency-one")
+const amountCurrencyOne=document.getElementById("amount-one")
+const currencyTwo=document.getElementById("currency-two")
+const amountCurrencyTwo=document.getElementById("amount-two")
+
+const rate=document.getElementById("rate")
+const swap=document.getElementById("swap")
+
+// Fetch exchange rate and update DOM
+
+function calculate(){
+const currencyOneCode=currencyOne.value;
+const currencyTwoCode=currencyTwo.value;
+
+// Send request to exchange rate api for conversion rate of currency one
+fetch(`https://v6.exchangerate-api.com/v6/5bb88632ceaf60b1306c930b/pair/${currencyOneCode}/${currencyTwoCode}`)
+.then(res => res.json())
+.then(data => console.log(data))
+
+// Get conversion rate from currency one to currency two
+};
+
+//Event Listener
+//Reculculate excahange rate when currency one changes
+currencyOne.addEventListener("change",calculate);
+//Reculculate excahange rate when currency one amount changes
+amountCurrencyOne.addEventListener("input",calculate);
+
+//Reculculate excahange rate when currency two changes
+currencyTwo.addEventListener("change",calculate);
+//Reculculate excahange rate when currency two amount changes
+amountCurrencyTwo.addEventListener("input",calculate);
+
+//Execute calculate function on page
+
+calculate();
