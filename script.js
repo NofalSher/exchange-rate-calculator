@@ -87,7 +87,14 @@ const conversionRate=data.conversion_rate;
 rate.innerText=`1${currencyOneCode}=${conversionRate} ${currencyTwoCode}`;
 
 //Update the currency two amount
-amountCurrencyTwo.value=(amountCurrencyOne.value*conversionRate.toFixed(2));
+// amountCurrencyTwo.value=(amountCurrencyOne.value*conversionRate.toFixed(4));  // To display code of currency as well we are using second code
+
+
+//Formatting currency two amount
+const amount2=new Intl.NumberFormat('en-us',{style:'currency',currency:currencyTwoCode}).format((amountCurrencyOne.value*conversionRate).toFixed(4))
+
+//updating DOM
+amountCurrencyTwo.value=amount2;
 
 });
 };
